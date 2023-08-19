@@ -37,7 +37,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
    `ng generate component services-list`
 4. Build the app
    `ng build`
-5. Dockerize the Angular App: Create a Dockerfile in the root of your project to define how the Angular app will be built and served within a Docker container:
+5. For development
+   `ng serve -o`
+6. Dockerize the Angular App: Create a Dockerfile in the root of your project to define how the Angular app will be built and served within a Docker container:
    ```docker
     # Use an official Node.js runtime as the base image
     FROM node:18 AS build
@@ -62,7 +64,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     COPY --from=build /app/dist/aiod-admin-panel /usr/share/nginx/html
    ```
 
-6. Build a docker image:
+7. Build a docker image:
    `docker build -t aiod-admin-panel .`
-7. Run the docker container:
-   `docker run -d -p 8888:80 my-angular-app`
+8. Run the docker container:
+   `docker run -d -p 8888:80 aiod-admin-panel`
