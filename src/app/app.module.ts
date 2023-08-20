@@ -3,9 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 import { ServicesListComponent } from './services-list/services-list.component';
 import { ApiConnectorService } from './services/api-connector.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8000/v1'],
+        sendAccessToken: true
+      }
+    })
   ],
   providers: [ApiConnectorService],
   bootstrap: [AppComponent]
