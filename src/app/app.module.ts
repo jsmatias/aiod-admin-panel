@@ -11,10 +11,7 @@ import { ServicesListComponent } from './services-list/services-list.component';
 import { ApiConnectorService } from './services/api-connector.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ServicesListComponent
-  ],
+  declarations: [AppComponent, ServicesListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,11 +19,11 @@ import { ApiConnectorService } from './services/api-connector.service';
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:8000/v1'],
-        sendAccessToken: true
-      }
-    })
+        sendAccessToken: true,
+      },
+    }),
   ],
   providers: [ApiConnectorService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
