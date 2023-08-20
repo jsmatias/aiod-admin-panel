@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { ServiceService } from '../service.service';
+import { ApiConnectorService } from '../services/api-connector.service';
 
 @Component({
   selector: 'app-services-list',
@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./services-list.component.css']
 })
 export class ServicesListComponent{
-  services: string[] = ['Event', 'Dataset'];
+  services: any;
   
-  // constructor(private serviceService: ServiceService) {}
+  constructor(private apiService: ApiConnectorService){}
   
-  // ngOnInit() {
-  //   this.serviceService.getServices().subscribe(services => {
-  //     this.services = services;
-  //   });
-  // }
+  ngOnInit() {
+    this.apiService.getData().subscribe(res => {
+      this.services = res;
+    });
+  }
 }
