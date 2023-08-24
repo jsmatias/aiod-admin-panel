@@ -26,7 +26,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-
 ## first time run
 
 1. Install Angular CLI
@@ -40,6 +39,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 5. For development
    `ng serve -o`
 6. Dockerize the Angular App: Create a Dockerfile in the root of your project to define how the Angular app will be built and served within a Docker container:
+
    ```docker
     # Use an official Node.js runtime as the base image
     FROM node:18 AS build
@@ -68,3 +68,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
    `docker build -t aiod-admin-panel .`
 8. Run the docker container:
    `docker run -d -p 8888:80 aiod-admin-panel`
+
+# Admin panel
+
+An administrative dashboard for accessing public services and managing permissions for the owner's owned services.

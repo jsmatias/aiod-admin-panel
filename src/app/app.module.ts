@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MatTableModule } from '@angular/material/table';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 
-import { ServicesListComponent } from './services-list/services-list.component';
+import { ServicesListComponent } from './components/panel/panel.component';
 import { ApiConnectorService } from './services/api-connector.service';
+import { RequestInterceptor } from './interceptors/request.interceptor';
 
 @NgModule({
   declarations: [AppComponent, ServicesListComponent],
@@ -16,14 +19,22 @@ import { ApiConnectorService } from './services/api-connector.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatTableModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:8000/v1'],
+        allowedUrls: ['http://localhost:8000/'],
         sendAccessToken: true,
       },
     }),
   ],
-  providers: [ApiConnectorService],
+  providers: [
+    ApiConnectorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

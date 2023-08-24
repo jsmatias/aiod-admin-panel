@@ -1,10 +1,10 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
-  issuer: 'https://test.openml.org/aiod-auth/realms/dev',
-  clientId: 'PUT_HERE_YOUR_CLIENT_ID',
+  issuer: 'http://localhost/aiod-auth/realms/aiod',
+  clientId: 'admin-panel',
   redirectUri: window.location.origin + '/',
   responseType: 'code',
   scope: 'openid profile email',
-  showDebugInformation: true
+  showDebugInformation: true,
 };
