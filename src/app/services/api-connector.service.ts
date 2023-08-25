@@ -8,19 +8,23 @@ import { Observable } from 'rxjs';
 export class ApiConnectorService {
   private apiUrl: string = 'api/';
 
-  constructor(
-    private http: HttpClient,
-    @Inject('service') private service: string,
-  ) {
-    this.apiUrl += `${this.service}/v0?schema=aiod&offset=0&limit=100`;
+  constructor(private http: HttpClient) {}
+
+  getData(service: string): Observable<any[]> {
+    const url: string =
+      this.apiUrl + `${service}/v0?schema=aiod&offset=0&limit=100`;
+    return this.http.get<any>(url);
   }
 
-  getData(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl);
+  getDataById(service: string, id: number): Observable<any> {
+    const url: string = this.apiUrl + `${service}/v0/${id}`;
+    return this.http.get<any>(url);
   }
 
-  updateData(service: string, identifier: number, data: any) {
-    this.apiUrl = `/${service}/v0/${identifier}`;
-    return this.http.patch<any>(this.apiUrl, data);
+  updateService(service: string, id: number, data: any) {
+    const url: string = this.apiUrl + `${service}/v0/${id}`;
+    console.log(url);
+    console.log(data);
+    return this.http.put<any>(url, data);
   }
 }

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { RequestInterceptor } from './interceptors/request.interceptor';
     HttpClientModule,
     MatTableModule,
     MatIconModule,
+    MatDialogModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:8000/'],
