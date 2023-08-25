@@ -1,8 +1,19 @@
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+.mat-mdc-form-field {
+  width: 100%;
+}
+
 .mat-mdc-table {
   width: 90%;
 }
 
 .mat-mdc-header-cell {
   font-weight: bold;
+}
+
+button {
+  background: transparent;
+  border: transparent;
+  :hover {
+    background: lightgray;
+  }
 }

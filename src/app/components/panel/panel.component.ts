@@ -2,12 +2,18 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiConnectorService } from '../../services/api-connector.service';
 import { PermissionDialogComponent } from '../permission-dialog/permission-dialog.component';
+import { MatSelectChange } from '@angular/material/select';
 
 export interface Data {
   identifier: number;
   name: string;
   creator: string | string[];
   is_accessible_for_free: boolean;
+}
+
+export interface Food {
+  value: string;
+  viewValue: string;
 }
 
 @Component({
@@ -17,7 +23,17 @@ export interface Data {
 })
 export class ServicesListComponent {
   services: any;
-  metadataToFetch: string = 'case_studies';
+  foods: Food[] = [
+    { value: 'case_studies', viewValue: 'Case Studies' },
+    { value: 'datasets', viewValue: 'Datasets' },
+    { value: 'computational_resources', viewValue: 'Computational Resources' },
+    { value: 'educational_resources', viewValue: 'Educational Resources' },
+    { value: 'events', viewValue: 'Events' },
+    { value: 'news', viewValue: 'News' },
+    { value: 'organisations', viewValue: 'Organisations' },
+    { value: 'news', viewValue: 'News' },
+  ];
+  metadataToFetch: string = 'datasets';
   displayedColumns: string[] = [
     'name',
     'creator',
@@ -37,13 +53,12 @@ export class ServicesListComponent {
     });
   }
 
-  getByID(element: Data): void {
-    this.apiService
-      .getDataById(this.metadataToFetch, element.identifier)
-      .subscribe((res) => {
-        const dataToUpdate: any = res;
-        console.log(dataToUpdate);
-      });
+  onChangeSelect(element: MatSelectChange) {
+    console.log(element.value);
+    this.apiService.getData(this.metadataToFetch).subscribe((res) => {
+      console.log(res);
+      this.services = res;
+    });
   }
 
   handleClickEdit(element: Data): void {

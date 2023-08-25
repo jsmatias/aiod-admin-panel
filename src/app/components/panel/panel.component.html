@@ -1,4 +1,15 @@
-<p>List of services</p>
+<mat-form-field>
+  <mat-label>Metadata catalog</mat-label>
+  <mat-select
+    [(ngModel)]="metadataToFetch"
+    (selectionChange)="onChangeSelect($event)"
+    name="food"
+  >
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{ food.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
 <table mat-table [dataSource]="services" class="mat-elevation-z8">
   <!-- Services Column -->
