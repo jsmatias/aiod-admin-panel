@@ -21,6 +21,8 @@ export class RequestInterceptor implements HttpInterceptor {
     const modifiedRequest = request.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken}`,
+        // accept: 'application/json',
+        // 'Content-Type': 'application/json',
       },
     });
     console.log(modifiedRequest);

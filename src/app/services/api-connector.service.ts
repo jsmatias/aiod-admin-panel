@@ -21,7 +21,7 @@ export class ApiConnectorService {
     return this.http.get<any>(url);
   }
 
-  updateService(service: string, id: number, data: any) {
+  updateService(service: string, id: number, data: any): Observable<any> {
     const url: string = this.apiUrl + `${service}/v0/${id}`;
     console.log(url);
     console.log(data);

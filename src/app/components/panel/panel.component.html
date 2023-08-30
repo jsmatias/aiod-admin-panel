@@ -3,10 +3,10 @@
   <mat-select
     [(ngModel)]="metadataToFetch"
     (selectionChange)="onChangeSelect($event)"
-    name="food"
+    name="service"
   >
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
+    <mat-option *ngFor="let service of serviceList" [value]="service.value">
+      {{ service.viewValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -28,7 +28,13 @@
   <ng-container matColumnDef="is_accessible_for_free">
     <th mat-header-cell *matHeaderCellDef>Permission</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.is_accessible_for_free ? "Public" : "Private" }}
+      {{
+        element.is_accessible_for_free == true
+          ? "Public"
+          : element.is_accessible_for_free == false
+          ? "Private"
+          : "NA"
+      }}
     </td>
   </ng-container>
 

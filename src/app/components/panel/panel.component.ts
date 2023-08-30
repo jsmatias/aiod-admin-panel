@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiConnectorService } from '../../services/api-connector.service';
 import { PermissionDialogComponent } from '../permission-dialog/permission-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 export interface Data {
   identifier: number;
@@ -11,7 +12,7 @@ export interface Data {
   is_accessible_for_free: boolean;
 }
 
-export interface Food {
+export interface Service {
   value: string;
   viewValue: string;
 }
@@ -23,7 +24,7 @@ export interface Food {
 })
 export class ServicesListComponent {
   services: any;
-  foods: Food[] = [
+  serviceList: Service[] = [
     { value: 'case_studies', viewValue: 'Case Studies' },
     { value: 'datasets', viewValue: 'Datasets' },
     { value: 'computational_resources', viewValue: 'Computational Resources' },
@@ -31,7 +32,9 @@ export class ServicesListComponent {
     { value: 'events', viewValue: 'Events' },
     { value: 'news', viewValue: 'News' },
     { value: 'organisations', viewValue: 'Organisations' },
-    { value: 'news', viewValue: 'News' },
+    { value: 'publications', viewValue: 'Publications' },
+    { value: 'projects', viewValue: 'Projects' },
+    { value: 'presentations', viewValue: 'Presentations' },
   ];
   metadataToFetch: string = 'datasets';
   displayedColumns: string[] = [
@@ -44,6 +47,7 @@ export class ServicesListComponent {
   constructor(
     private apiService: ApiConnectorService,
     private dialog: MatDialog,
+    private oauthService: OAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -62,22 +66,17 @@ export class ServicesListComponent {
   }
 
   handleClickEdit(element: Data): void {
-    const dialogRef = this.dialog.open(PermissionDialogComponent, {
-      data: {
-        identifier: element.identifier,
-        name: element.name,
-        creator: element.creator,
-        is_accessible_for_free: element.is_accessible_for_free,
-      },
-    });
+    const dialogRef = this.openPermissionDialog(element);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result ? result : 'No change..');
+      console.log(result ? 'result' : 'No change..');
 
       if (
         result &&
         result.is_accessible_for_free != element.is_accessible_for_free
       ) {
+        console.log(result);
+
         this.apiService
           .getDataById(this.metadataToFetch, result.identifier)
           .subscribe((res) => {
@@ -86,14 +85,32 @@ export class ServicesListComponent {
             dataToUpdate.is_accessible_for_free = result.is_accessible_for_free;
             // update element to refresh the FE table
             element.is_accessible_for_free = result.is_accessible_for_free;
-
-            this.apiService.updateService(
-              this.metadataToFetch,
-              result.identifier,
-              dataToUpdate,
-            );
+            delete dataToUpdate.identifier;
+            this.apiService
+              .updateService(
+                this.metadataToFetch,
+                result.identifier,
+                dataToUpdate,
+              )
+              .subscribe((res) => {
+                console.log(res);
+              });
           });
       }
+    });
+  }
+
+  openPermissionDialog(element: Data) {
+    if (!this.oauthService.hasValidAccessToken()) {
+      this.oauthService.initLoginFlow();
+    }
+    return this.dialog.open(PermissionDialogComponent, {
+      data: {
+        identifier: element.identifier,
+        name: element.name,
+        creator: element.creator,
+        is_accessible_for_free: element.is_accessible_for_free,
+      },
     });
   }
 }

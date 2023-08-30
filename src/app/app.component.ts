@@ -7,29 +7,33 @@ import { authConfig } from 'keycloak.config';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'aiod-admin-panel';
-  user: string = '';
   token: string = '';
 
-  constructor(private oauthService: OAuthService) {}
-
-  ngOnInit(): void {
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then((result) => {
-      if (result) {
-        let identity = this.oauthService.getIdentityClaims();
-        this.user = `${identity['given_name']} ${identity['family_name']}`;
-        this.token = this.oauthService.getAccessToken();
-      }
-    });
+  constructor(private oauthService: OAuthService) {
+    this.configure();
   }
 
-  login() {
+  private configure(): void {
+    this.oauthService.configure(authConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
+
+  public get user(): string | null {
+    if (!this.oauthService.hasValidAccessToken()) {
+      return 'Login to proceed...';
+    }
+    let claims = this.oauthService.getIdentityClaims();
+    if (!claims) return null;
+    return claims['given_name'];
+  }
+
+  public login(): void {
     this.oauthService.initLoginFlow();
   }
 
-  logout() {
+  public logout(): void {
     this.oauthService.logOut();
   }
 }

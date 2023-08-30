@@ -3,11 +3,8 @@
     <button (click)="login()">Login</button>
     <button (click)="logout()">Logout</button>
 
-    <h1>Hello {{ user || "Login to proceed..." }}</h1>
-    <!-- <h2>Token:</h2> -->
-    <!-- <pre>
-        {{ token }}
-    </pre> -->
+    <h1 *ngIf="!user">Hello Unknown</h1>
+    <h1 *ngIf="user">Hello, {{ user }}</h1>
     <app-panel></app-panel>
   </div>
 </router-outlet>
