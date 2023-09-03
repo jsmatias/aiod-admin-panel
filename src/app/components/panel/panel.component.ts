@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiConnectorService } from '../../services/api-connector.service';
 import { PermissionDialogComponent } from '../permission-dialog/permission-dialog.component';
@@ -23,6 +23,8 @@ export interface Service {
   styleUrls: ['./panel.component.css'],
 })
 export class ServicesListComponent {
+  // @Input('serviceList') serviceList
+  @Output('openModal') openModal = new EventEmitter();
   services: any;
   serviceList: Service[] = [
     { value: 'case_studies', viewValue: 'Case Studies' },
@@ -92,15 +94,21 @@ export class ServicesListComponent {
                 result.identifier,
                 dataToUpdate,
               )
-              .subscribe((res) => {
-                console.log(res);
-              });
+              .subscribe(
+                (res) => {
+                  console.log(res);
+                },
+                (error) => {
+                  console.log('error');
+                },
+              );
           });
       }
     });
   }
 
   openPermissionDialog(element: Data) {
+    this.openModal.emit(element.identifier);
     if (!this.oauthService.hasValidAccessToken()) {
       this.oauthService.initLoginFlow();
     }

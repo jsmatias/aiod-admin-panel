@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-
+type state = 'public' | 'private';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,5 +26,11 @@ export class ApiConnectorService {
     console.log(url);
     console.log(data);
     return this.http.put<any>(url, data);
+  }
+  saveState(id: number, state: boolean, service: string) {
+    return this.getDataById(service, id).subscribe((res) => {
+      res.is_accessible_for_free = state;
+      this.updateService(service, id, res).subscribe((result) => {});
+    });
   }
 }

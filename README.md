@@ -1,5 +1,7 @@
 # AiodAdminPanel
 
+An administrative dashboard for accessing public services and managing permissions for the owner's owned services.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
 ## Development server
@@ -26,7 +28,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## first time run
+# First time run
 
 1. Install Angular CLI
    `npm install -g @angular/cli`
@@ -69,6 +71,23 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 8. Run the docker container:
    `docker run -d -p 8888:80 aiod-admin-panel`
 
-# Admin panel
+# Issues and requirements to the BE API
 
-An administrative dashboard for accessing public services and managing permissions for the owner's owned services.
+1. Users' unique `ID`:
+   a. Needed to identify the owner of a service/metadata
+   b. Give access to their own service/metadata
+2. Platform/instance unique `ID`:
+   a. Needed to identify the where the services are stored
+3. A table field with the options `local/federated`:
+   a. right now I'm using the field `is_accessible_for_free`
+4. A view to list all the available metadata/endpoints:
+   a. At the moment I've implemented manually a list in the FE code with the endpoints:
+   ```javascript
+    serviceList: Service[] = [
+        { value: 'case_studies', viewValue: 'Case Studies' },
+        { value: 'datasets', viewValue: 'Datasets' },
+        { value: 'computational_resources', viewValue: 'Computational Resources' },
+        { value: 'educational_resources', viewValue: 'Educational Resources' },
+        ...
+    ];
+   ```

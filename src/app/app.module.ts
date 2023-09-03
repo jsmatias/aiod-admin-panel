@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -19,9 +22,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ServicesListComponent } from './components/panel/panel.component';
 import { ApiConnectorService } from './services/api-connector.service';
 import { RequestInterceptor } from './interceptors/request.interceptor';
+import { AuthGuard } from './guard/auth.guard';
+import { AuthService } from './services/authentication.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, ServicesListComponent],
+  declarations: [AppComponent, ServicesListComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,6 +38,8 @@ import { RequestInterceptor } from './interceptors/request.interceptor';
     MatIconModule,
     MatDialogModule,
     MatSelectModule,
+    MatToolbarModule,
+    MatButtonModule,
     NgFor,
     FormsModule,
     OAuthModule.forRoot({
@@ -42,6 +50,8 @@ import { RequestInterceptor } from './interceptors/request.interceptor';
     }),
   ],
   providers: [
+    AuthGuard,
+    AuthService,
     ApiConnectorService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,15 @@
+.mat-mdc-table {
+  width: 90%;
+}
+
+.mat-mdc-header-cell {
+  font-weight: bold;
+}
+
+button {
+  background: transparent;
+  border: transparent;
+  :hover {
+    background: lightgray;
+  }
+}

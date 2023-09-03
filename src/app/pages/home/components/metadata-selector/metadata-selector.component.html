@@ -1,0 +1,15 @@
+<mat-form-field>
+  <mat-label>Metadata catalog</mat-label>
+  <mat-select
+    [(ngModel)]="selectedItem"
+    (selectionChange)="onItemSelected($event.value)"
+    name="service"
+  >
+    <mat-option
+      *ngFor="let metadata of metadataCatalog"
+      [value]="metadata.value"
+    >
+      {{ metadata.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
