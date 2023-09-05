@@ -19,7 +19,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 
-import { ServicesListComponent } from './components/panel/panel.component';
 import { ApiConnectorService } from './services/api-connector.service';
 import { RequestInterceptor } from './interceptors/request.interceptor';
 import { AuthGuard } from './guard/auth.guard';
@@ -27,7 +26,7 @@ import { AuthService } from './services/authentication.service';
 import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, ServicesListComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

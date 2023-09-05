@@ -1,7 +1,10 @@
 <h1>Home page</h1>
 <home-metadata-selector
   [metadataCatalog]="metadataCatalog"
-  [selectedItem]="selectedItem"
+  [selectedItem]="selectedMetadata"
   (changeItem)="updatePanel($event)"
 ></home-metadata-selector>
-<app-panel [metadataList]="currentMetadataList"></app-panel>
+<app-panel
+  [metadataList]="currentServiceList"
+  (openDialog)="editServicePermission($event)"
+></app-panel>

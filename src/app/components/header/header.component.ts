@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/authentication.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  page: string = 'Home';
+  page: string = 'AIoD Dashboard';
   constructor(private authService: AuthService) {}
 
   get isAuthenticated(): boolean {

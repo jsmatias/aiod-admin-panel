@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface Metadata {
   identifier: number;
@@ -13,7 +14,7 @@ export interface Metadata {
   styleUrls: ['./panel.component.css'],
 })
 export class PanelComponent {
-  @Input('metadataList') metadataList: Metadata[] = [];
+  @Input('metadataList') metadataList = new MatTableDataSource<Metadata>([]);
   @Output('openDialog') openDialog = new EventEmitter();
 
   displayedColumns: string[] = [

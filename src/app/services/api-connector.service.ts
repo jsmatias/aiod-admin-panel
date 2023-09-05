@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
-type state = 'public' | 'private';
+import { Injectable } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,10 +27,19 @@ export class ApiConnectorService {
     console.log(data);
     return this.http.put<any>(url, data);
   }
-  saveState(id: number, state: boolean, service: string) {
-    return this.getDataById(service, id).subscribe((res) => {
-      res.is_accessible_for_free = state;
-      this.updateService(service, id, res).subscribe((result) => {});
-    });
+
+  updatePermission(
+    id: number,
+    permission: boolean,
+    service: string,
+  ): Observable<void | null> {
+    return this.getDataById(service, id).pipe(
+      switchMap((res) => {
+        // Update the permission in the retrieved data
+        res.is_accessible_for_free = permission;
+        // Perform the update operation
+        return this.updateService(service, id, res);
+      }),
+    );
   }
 }

@@ -1,9 +1,15 @@
 <h1 mat-dialog-title>Permission control</h1>
 <div mat-dialog-content>
-  <p>When set to "public" the service becomes available to the AI community.</p>
-  <mat-checkbox [(ngModel)]="data.is_accessible_for_free">Public</mat-checkbox>
+  <p>
+    When set to "federated" the service becomes available to the AI community.
+  </p>
+  <h4>{{ data.name }}</h4>
+  <mat-checkbox [(ngModel)]="data.is_accessible_for_free"
+    >Federated</mat-checkbox
+  >
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+  <button mat-button cdkFocusInitial (click)="save()">Save</button>
 </div>
+<!-- [mat-dialog-close]="data" -->
