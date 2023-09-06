@@ -10,6 +10,7 @@
   <span class="example-spacer"></span>
   <span>{{ user }}</span>
   <button
+    mat-button
     *ngIf="!isAuthenticated"
     aria-label="Example icon-button with heart icon"
     (click)="login()"
@@ -17,6 +18,7 @@
     Login
   </button>
   <button
+    mat-button
     *ngIf="isAuthenticated"
     aria-label="Example icon-button with share icon"
     (click)="logout()"

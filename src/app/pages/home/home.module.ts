@@ -1,8 +1,4 @@
-import {
-  NgModule,
-  // CUSTOM_ELEMENTS_SCHEMA,
-  // NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -41,6 +37,5 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     FormsModule,
     RouterModule.forChild(routes),
   ],
-  // schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class HomeModule {}
