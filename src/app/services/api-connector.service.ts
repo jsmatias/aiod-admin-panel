@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +26,20 @@ export class ApiConnectorService {
     console.log(url);
     console.log(data);
     return this.http.put<any>(url, data);
+  }
+
+  updatePermission(
+    id: number,
+    permission: boolean,
+    service: string,
+  ): Observable<void | null> {
+    return this.getDataById(service, id).pipe(
+      switchMap((res) => {
+        // Update the permission in the retrieved data
+        res.is_accessible_for_free = permission;
+        // Perform the update operation
+        return this.updateService(service, id, res);
+      }),
+    );
   }
 }

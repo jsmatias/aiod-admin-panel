@@ -1,0 +1,28 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span> {{ page }} </span>
+  <span class="example-spacer"></span>
+  <span>{{ user }}</span>
+  <button
+    mat-button
+    *ngIf="!isAuthenticated"
+    aria-label="Example icon-button with heart icon"
+    (click)="login()"
+  >
+    Login
+  </button>
+  <button
+    mat-button
+    *ngIf="isAuthenticated"
+    aria-label="Example icon-button with share icon"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+</mat-toolbar>

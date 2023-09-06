@@ -8,30 +8,29 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from '../services/authentication.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  constructor(private oauthService: OAuthService) {}
+  constructor(private authService: AuthService) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const authToken = this.oauthService.getAccessToken();
+    const authToken = this.authService.token;
     const modifiedRequest = request.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken}`,
-        // accept: 'application/json',
-        // 'Content-Type': 'application/json',
       },
     });
-    console.log(modifiedRequest);
+
     return next.handle(modifiedRequest).pipe(
       map((event: HttpEvent<any>) => {
+        // console.log('Modified:', event);
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+        // console.log('Error', error);
         throw error;
       }),
     );
