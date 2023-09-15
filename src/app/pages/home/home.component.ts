@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ApiConnectorService } from 'src/app/services/api-connector.service';
+import { ApiConnectorService } from 'src/app/core/services/api-connector.service';
 import { PermissionDialogComponent } from './components/permission-dialog/permission-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -12,14 +12,13 @@ export interface MetadataCatalogItem {
 const _metadataCatalog: MetadataCatalogItem[] = [
   { value: 'case_studies', viewValue: 'Case Studies' },
   { value: 'datasets', viewValue: 'Datasets' },
-  { value: 'computational_resources', viewValue: 'Computational Resources' },
+  { value: 'computational_assets', viewValue: 'Computational Assets' },
   { value: 'educational_resources', viewValue: 'Educational Resources' },
   { value: 'events', viewValue: 'Events' },
   { value: 'news', viewValue: 'News' },
   { value: 'organisations', viewValue: 'Organisations' },
   { value: 'publications', viewValue: 'Publications' },
   { value: 'projects', viewValue: 'Projects' },
-  { value: 'presentations', viewValue: 'Presentations' },
 ];
 
 export interface Service {

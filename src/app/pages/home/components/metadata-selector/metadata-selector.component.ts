@@ -11,11 +11,9 @@ export interface MetadataItem {
   styleUrls: ['./metadata-selector.component.css'],
 })
 export class MetadataSelectorComponent {
-  @Input('metadataCatalog') metadataCatalog!: MetadataItem[];
-  @Input('selectedItem') selectedItem!: string;
-  @Output('changeItem') changeItem: EventEmitter<string> =
-    new EventEmitter<string>();
-  constructor() {}
+  @Input() metadataCatalog!: MetadataItem[];
+  @Input() selectedItem!: string;
+  @Output() changeItem: EventEmitter<string> = new EventEmitter<string>();
 
   onItemSelected(value: string): void {
     this.changeItem.emit(value);

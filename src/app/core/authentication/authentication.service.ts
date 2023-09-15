@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { authConfig } from 'keycloak.config';
+import { authConfig } from 'src/app/configs/keycloak.config';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class AuthService {
     if (!this.isAuthenticated()) {
       return 'Login to proceed...';
     }
-    let claims = this.oauthService.getIdentityClaims();
+    const claims = this.oauthService.getIdentityClaims();
     if (!claims) return null;
     return claims['given_name'];
   }
@@ -44,6 +44,7 @@ export class AuthService {
         this.authenticationEventObservable.next(result);
       })
       .catch((error) => {
+        console.error(error);
         this.logout();
       });
 

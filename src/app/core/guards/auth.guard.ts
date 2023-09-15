@@ -6,14 +6,12 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/authentication.service';
+import { AuthService } from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  // protected authenticated!: boolean;
-
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -27,7 +25,7 @@ export class AuthGuard {
     | boolean
     | UrlTree {
     if (this.authService.isAuthenticated()) {
-      let activated: Observable<boolean> = new Observable<boolean>(
+      const activated: Observable<boolean> = new Observable<boolean>(
         (subscriber) => {
           console.log(this.authService.isAuthenticated());
           subscriber.next(true);

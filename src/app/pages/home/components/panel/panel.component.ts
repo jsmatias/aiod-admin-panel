@@ -14,8 +14,8 @@ export interface Metadata {
   styleUrls: ['./panel.component.css'],
 })
 export class PanelComponent {
-  @Input('metadataList') metadataList = new MatTableDataSource<Metadata>([]);
-  @Output('openDialog') openDialog = new EventEmitter();
+  @Input() metadataList = new MatTableDataSource<Metadata>([]);
+  @Output() openDialog = new EventEmitter();
 
   displayedColumns: string[] = [
     'name',
@@ -23,8 +23,6 @@ export class PanelComponent {
     'is_accessible_for_free',
     'modify',
   ];
-
-  constructor() {}
 
   handleOnClickModifyBt(element: Metadata) {
     this.openDialog.emit(element);

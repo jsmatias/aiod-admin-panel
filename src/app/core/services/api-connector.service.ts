@@ -6,23 +6,24 @@ import { Observable, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiConnectorService {
-  private apiUrl: string = 'api/';
+  private apiUrl = 'api/';
 
   constructor(private http: HttpClient) {}
 
   getData(service: string): Observable<any[]> {
     const url: string =
-      this.apiUrl + `${service}/v0?schema=aiod&offset=0&limit=100`;
+      this.apiUrl + `${service}/v1?schema=aiod&offset=0&limit=100`;
+    // console.log('URL', url);
     return this.http.get<any>(url);
   }
 
   getDataById(service: string, id: number): Observable<any> {
-    const url: string = this.apiUrl + `${service}/v0/${id}`;
+    const url: string = this.apiUrl + `${service}/v1/${id}`;
     return this.http.get<any>(url);
   }
 
   updateService(service: string, id: number, data: any): Observable<any> {
-    const url: string = this.apiUrl + `${service}/v0/${id}`;
+    const url: string = this.apiUrl + `${service}/v1/${id}`;
     console.log(url);
     console.log(data);
     return this.http.put<any>(url, data);

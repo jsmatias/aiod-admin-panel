@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AuthService } from '../services/authentication.service';
+import { AuthService } from '../authentication/authentication.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -23,6 +23,7 @@ export class RequestInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${authToken}`,
       },
     });
+    // console.log('modified request:', modifiedRequest);
 
     return next.handle(modifiedRequest).pipe(
       map((event: HttpEvent<any>) => {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/core/authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/authentication.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  page: string = 'AIoD Dashboard';
+  page = 'AIoD Dashboard';
   constructor(private authService: AuthService) {}
 
   get isAuthenticated(): boolean {

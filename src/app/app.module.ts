@@ -19,11 +19,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { OAuthModule } from 'angular-oauth2-oidc';
 
-import { ApiConnectorService } from './services/api-connector.service';
-import { RequestInterceptor } from './interceptors/request.interceptor';
-import { AuthGuard } from './guard/auth.guard';
-import { AuthService } from './services/authentication.service';
-import { HeaderComponent } from './components/header/header.component';
+import { ApiConnectorService } from './core/services/api-connector.service';
+import { RequestInterceptor } from './core/interceptors/request.interceptor';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthService } from './core/authentication/authentication.service';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
