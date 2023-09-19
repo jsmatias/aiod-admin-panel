@@ -23,15 +23,12 @@ export class RequestInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    // console.log('modified request:', modifiedRequest);
 
     return next.handle(modifiedRequest).pipe(
       map((event: HttpEvent<any>) => {
-        // console.log('Modified:', event);
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        // console.log('Error', error);
         throw error;
       }),
     );

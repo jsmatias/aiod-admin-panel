@@ -16,7 +16,6 @@ export class AuthService {
 
   private configure(): void {
     this.oauthService.configure(authConfig);
-    // this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   public get token(): string {
