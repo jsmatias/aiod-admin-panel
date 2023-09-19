@@ -11,11 +11,6 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'login',
-  //   loadChildren: () =>
-  //     import('./pages/login/login.module').then((m) => m.LoginModule),
-  // },
   // { path: '**', component: PageNotFoundComponent },
 ];
 

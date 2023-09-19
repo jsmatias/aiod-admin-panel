@@ -11,16 +11,9 @@ export class AuthService {
     new Subject<boolean>();
 
   constructor(private oauthService: OAuthService) {
-    this.configure();
-  }
-
-  private configure(): void {
     this.oauthService.configure(authConfig);
   }
 
-  public get token(): string {
-    return this.oauthService.getAccessToken();
-  }
   public get user(): string | null {
     if (!this.isAuthenticated()) {
       return 'Login to proceed...';
@@ -29,6 +22,21 @@ export class AuthService {
     if (!claims) return null;
     return claims['given_name'];
   }
+
+  public get token(): Promise<string> {
+    return new Promise<string>((resolve) => {
+      this.oauthService.events.subscribe((event) => {
+        if (
+          event.type === 'token_received' ||
+          this.oauthService.hasValidAccessToken()
+        ) {
+          console.log('token Received');
+          resolve(this.oauthService.getAccessToken());
+        }
+      });
+    });
+  }
+
   public isAuthenticated(): boolean {
     return (
       this.oauthService.hasValidAccessToken() &&
@@ -36,22 +44,24 @@ export class AuthService {
     );
   }
 
-  public login() {
-    this.oauthService
-      .loadDiscoveryDocumentAndLogin()
-      .then((result: boolean) => {
-        this.authenticationEventObservable.next(result);
-      })
-      .catch((error) => {
-        console.error(error);
-        this.logout();
-      });
-
-    // Optional
-    this.oauthService.setupAutomaticSilentRefresh();
+  public login(): void {
+    if (!this.isAuthenticated()) {
+      this.oauthService
+        .loadDiscoveryDocumentAndLogin()
+        .then((result: boolean) => {
+          this.authenticationEventObservable.next(result);
+        })
+        .catch((error) => {
+          console.error(error);
+          this.logout();
+        });
+    }
   }
 
   public logout(): void {
-    this.oauthService.logOut();
+    if (this.oauthService.hasValidAccessToken()) {
+      console.log(this.oauthService.getAccessToken());
+      this.oauthService.logOut();
+    }
   }
 }
